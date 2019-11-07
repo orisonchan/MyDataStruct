@@ -4,4 +4,4 @@
 
 + Concurrent Doubly LinkedList
 
-[MySingleton.java](src/main/java/my/struct/linkedlist/MyConcurrentDoublyLinkedList.java)
+[MyConcurrentDoublyLinkedList.java](src/main/java/my/struct/linkedlist/MyConcurrentDoublyLinkedList.java)
