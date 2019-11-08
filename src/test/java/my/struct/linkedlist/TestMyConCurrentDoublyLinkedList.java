@@ -5,10 +5,7 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
+import java.util.concurrent.*;
 
 public class TestMyConCurrentDoublyLinkedList {
 
@@ -126,6 +123,45 @@ public class TestMyConCurrentDoublyLinkedList {
     }
     System.out.println(list.toString());
     assert (list.getSize() == 5);
+  }
+
+  @Test
+  public void testConcurrentRemove() throws ExecutionException, InterruptedException {
+    MyConcurrentLinkedList<Person> list = new MyConcurrentDoublyLinkedList<>();
+    list.append(new Person(1, "zhangsan"));
+    list.append(new Person(2, "lisi"));
+    list.append(new Person(4, "lily"));
+    list.append(new Person(3, "wangwu"));
+    list.append(new Person(3, "wangwu"));
+    list.append(new Person(3, "wangwu"));
+    list.append(new Person(4, "lily"));
+    list.append(new Person(5, "alice"));
+    list.append(new Person(6, "emily"));
+    list.append(new Person(7, "coco"));
+    list.append(new Person(7, "coco"));
+
+    Callable<Integer> callable1 = () -> {
+      list.remove(new Person(3, "wangwu"));
+      return 3;
+    };
+    Callable<Integer> callable2 = () -> {
+      list.remove(new Person(7, "coco"));
+      return 7;
+    };
+    Callable<Integer> callable3 = () -> {
+      list.remove(new Person(4, "lily"));
+      return 4;
+    };
+    ExecutorService pool = Executors.newFixedThreadPool(3);
+    List<Future<Integer>> futureList = new ArrayList<>();
+    futureList.add(pool.submit(callable1));
+    futureList.add(pool.submit(callable2));
+    futureList.add(pool.submit(callable3));
+    for (Future<Integer> future : futureList) {
+      future.get();
+    }
+    System.out.println(list.toString());
+    assert (list.getSize() == 4);
   }
 
 }
