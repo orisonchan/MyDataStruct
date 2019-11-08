@@ -2,7 +2,13 @@ package my.struct.linkedlist;
 
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 public class TestMyConCurrentDoublyLinkedList {
 
@@ -102,4 +108,24 @@ public class TestMyConCurrentDoublyLinkedList {
     list.append(new Person(8, "abcd"));
     assert (list.toString().equals("[{2, lisi}{4, lily}{5, alice}{6, emily}{8, abcd}]"));
   }
+
+  @Test
+  public void testConcurrentAppend() throws InterruptedException, ExecutionException {
+    MyConcurrentLinkedList<Person> list = new MyConcurrentDoublyLinkedList<>();
+    ExecutorService pool = Executors.newFixedThreadPool(5);
+    List<Future<Integer>> futureList = new ArrayList<>();
+    for (int i = 0; i < 5; i++) {
+      final int finalI = i;
+      futureList.add(pool.submit(() -> {
+        list.append(new Person(finalI, finalI + ""));
+        return finalI;
+      }));
+    }
+    for (Future<Integer> future : futureList) {
+      future.get();
+    }
+    System.out.println(list.toString());
+    assert (list.getSize() == 5);
+  }
+
 }
