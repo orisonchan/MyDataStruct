@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.*;
 
-public class TestMyConCurrentDoublyLinkedList {
+public class MyConCurrentDoublyLinkedListSuite {
 
   private class Person {
     private int id;
