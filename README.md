@@ -9,4 +9,5 @@
 + MinMax Heap
 
 [MinHeap.java](src/main/java/my/struct/heap/MinHeap.java)
+
 [MaxHeap.java](src/main/java/my/struct/heap/MaxHeap.java)
