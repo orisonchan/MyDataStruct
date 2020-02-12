@@ -5,3 +5,8 @@
 + Concurrent Doubly LinkedList
 
 [MyConcurrentDoublyLinkedList.java](src/main/java/my/struct/linkedlist/MyConcurrentDoublyLinkedList.java)
+
++ MinMax Heap
+
+[MinHeap.java](src/main/java/my/struct/heap/MinHeap.java)
+[MaxHeap.java](src/main/java/my/struct/heap/MaxHeap.java)
