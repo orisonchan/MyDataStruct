@@ -121,7 +121,6 @@ public class MyConCurrentDoublyLinkedListSuite {
     for (Future<Integer> future : futureList) {
       future.get();
     }
-    System.out.println(list.toString());
     assert (list.getSize() == 5);
   }
 
@@ -160,7 +159,6 @@ public class MyConCurrentDoublyLinkedListSuite {
     for (Future<Integer> future : futureList) {
       future.get();
     }
-    System.out.println(list.toString());
     assert (list.getSize() == 4);
   }
 
